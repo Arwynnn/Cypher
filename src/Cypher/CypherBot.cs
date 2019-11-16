@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using Cypher.Services;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
@@ -70,6 +71,7 @@ namespace Cypher
                 .AddSingleton(_client)
                 .AddSingleton(_commandService)
                 .AddSingleton<CommandHandler>()
+                .AddSingleton<RandomService>()
                 .BuildServiceProvider();
         }
     }
