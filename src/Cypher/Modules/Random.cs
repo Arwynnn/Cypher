@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Cypher.Modules
 {
-    public class Ping : ModuleBase<SocketCommandContext>
+    public class Random : ModuleBase<SocketCommandContext>
     {
         [Command("Ping")][Summary("Replies with Pong")]
         public async Task PingCommand()
