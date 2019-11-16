@@ -1,4 +1,5 @@
-﻿using Discord.Commands;
+﻿using Cypher.Services;
+using Discord.Commands;
 using Discord.WebSocket;
 using System.Threading.Tasks;
 
@@ -6,6 +7,13 @@ namespace Cypher.Modules
 {
     public class Random : ModuleBase<SocketCommandContext>
     {
+        private readonly RandomService _randomService;
+
+        public Random(RandomService randomService)
+        {
+            _randomService = randomService;
+        }
+
         [Command("Ping")][Summary("Replies with Pong")]
         public async Task PingCommand()
         {
@@ -21,26 +29,8 @@ namespace Cypher.Modules
         [Command("Check")]
         public async Task CheckCommand(SocketGuildUser user = null)
         {
-            if (user is null)
-            {
-                await ReplyAsync("You need to enter a user.");
-                return;
-            }
-
-            if (user.Id == Context.Client.CurrentUser.Id)
-            {
-                await ReplyAsync("Of course I am a bot, you imbecile! 👿");
-                return;
-            }
-
-            if (user.IsBot)
-            {
-                await ReplyAsync($"{user.Username} is a good bot :)");
-            }
-            else
-            {
-                await ReplyAsync($"{user.Username} is not a good bot >:(");
-            }
+            var result = _randomService.CheckUserIsBot(user);
+            await ReplyAsync(result);
         }
     }
 }
